@@ -12,4 +12,10 @@ public interface IUserDAO {
 	//¼ì²éÕËºÅ
 	public User checkUser(String uname,String password);
 	
+	//×¢²á
+	public void addUser(User user);
+	
+	//É¾³ý
+	public void delUser(Integer uid);
+	
 }

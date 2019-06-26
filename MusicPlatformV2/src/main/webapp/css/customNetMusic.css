@@ -8,24 +8,29 @@
 
 /*导航区*/
 
+.logoNav {
+    position: absolute;
+    left: 22%;
+}
+
 .loginNav {
     position: absolute;
-    left: 25%
+    left: 25%;
 }
 
 .registerNav {
     position: absolute;
-    left: 26%
+    left: 26%;
 }
 
 .searchNav {
     position: absolute;
-    left: 35%
+    left: 35%;
 }
 
 .userNav {
     position: absolute;
-    left: 40%
+    left: 40%;
 }
 
 

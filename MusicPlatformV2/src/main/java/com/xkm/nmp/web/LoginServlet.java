@@ -1,16 +1,22 @@
 package com.xkm.nmp.web;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.xkm.nmp.pojo.User;
+import com.xkm.nmp.service.UserService;
 
 /**
  * Servlet implementation class LoginServlet
  */
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private UserService us = new UserService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -28,8 +34,10 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
-		String type=request.getParameter("type");
+		String type = request.getParameter("type");
+		List<User> users = us.queryAll();
 		System.out.println(type);
+		users.forEach(u -> System.out.println(u.toString()));
 	}
 
 	/**

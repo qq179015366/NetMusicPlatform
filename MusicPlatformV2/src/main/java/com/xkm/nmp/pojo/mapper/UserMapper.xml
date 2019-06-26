@@ -4,64 +4,28 @@
 
 
 <!-- namespace:命名空间，该值与接口保持一致 -->
-<mapper namespace="com.newer.hrs.dao.IEmpDAO">
+<mapper namespace="com.xkm.nmp.dao.IUserDAO">
 	<!-- 开启二级缓存，默认情况下没有有开启的 -->
 	<cache />
 	<!-- 定义Pojo类属性与数据表字段对应关系 -->
-	<resultMap type="Emp" id="empMap">
-		<id property="empno" column="EMPNO" />
-		<result property="ename" column="ENAME" />
-		<result property="job" column="job" />
+	<resultMap type="User" id="userMap">
+		<id property="uid" column="uid" />
+		<result property="uname" column="uname" />
+		<result property="password" column="password" />
+		<result property="sex" column="sex" />
 		<result property="phone" column="phone" />
 		<result property="email" column="email" />
-		<result property="hiredate" column="HIREDATE" />
 				<!-- 关联关系：多对一 -->
-		<association property="dept" javaType="Dept">
-			<id property="deptno" column="DEPTNO" />
-			<result property="dname" column="DNAME" />
-			<result property="loc" column="loc"/>
-		</association>
+
 	</resultMap>
 
 
-	<resultMap type="Dept" id="deptMap">
-		<id property="deptno" column="DEPTNO" />
-		<result property="dname" column="DNAME" />
-		<result property="loc" column="LOC" />
-		<!-- 配置一对多 -->
-	</resultMap>
-
-
-	<select id="queryAll" resultMap="empMap">
-		SELECT a.*,b.DEPTNO,b.DNAME,b.LOC FROM T_EMP a,T_DEPT b WHERE a.DEPTNO=b.DEPTNO
+	<select id="queryAll" resultMap="userMap">
+		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email FROM USER_table u
 	</select>
 	
-	
-	<select id="queryPage" resultMap="empMap">
-		SELECT a.*,b.DEPTNO,b.DNAME,b.LOC FROM T_EMP a,T_DEPT b WHERE a.DEPTNO=b.DEPTNO LIMIT #{0},#{1}
-	</select>
-
-	<select id="count" resultType="java.lang.Integer">
-		SELECT COUNT(1) FROM T_EMP
+	<select id="checkUser" resultMap="userMap">
+		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email FROM USER_table u WHERE UNAME=#{0} AND PASSWORD=#{1}
 	</select>
 	
-	<select id="queryDept" resultMap="deptMap">
-		SELECT a.deptno,a.dname,a.loc FROM T_DEPT a
-	</select>
-	
-	<insert id="addEmp" parameterType="Emp">
-		INSERT INTO T_EMP(ENAME,JOB,PHONE,EMAIL,HIREDATE,DEPTNO) 
-		VALUES(#{ename},#{job},#{phone},#{email},#{hiredate},#{dept.deptno})
-	</insert>
-	
-	<select id="queryByEmpno" parameterType="java.lang.Integer"
-		resultMap="empMap">
-		SELECT a.*,b.DEPTNO,b.DNAME,b.LOC FROM T_EMP a,T_DEPT b WHERE a.DEPTNO=b.DEPTNO AND a.EMPNO=#{empno}
-	</select>
-
-	<update id="updateEmp" parameterType="Emp">
-		UPDATE T_EMP SET
-		ENAME=#{ename},JOB=#{job},PHONE=#{phone},EMAIL=#{email},HIREDATE=#{hiredate},DEPTNO=#{dept.deptno} WHERE EMPNO=#{empno}
-	</update>
-
 </mapper>

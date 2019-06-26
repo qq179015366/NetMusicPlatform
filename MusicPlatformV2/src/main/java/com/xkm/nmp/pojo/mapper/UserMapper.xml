@@ -24,4 +24,8 @@
 		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email FROM USER_table u
 	</select>
 	
+	<select id="checkUser" resultMap="userMap">
+		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email FROM USER_table u WHERE UNAME=#{0} AND PASSWORD=#{1}
+	</select>
+	
 </mapper>

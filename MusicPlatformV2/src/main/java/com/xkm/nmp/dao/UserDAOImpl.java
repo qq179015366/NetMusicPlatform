@@ -13,6 +13,7 @@ public class UserDAOImpl implements IUserDAO{
 	SqlSessionFactory sf = SqlSessionFactoryUtil.getSqlSessionFactory();
 	SqlSession s = null;
 
+	//查所有
 	@Override
 	public List<User> queryAll() {
 		s = sf.openSession();
@@ -20,6 +21,16 @@ public class UserDAOImpl implements IUserDAO{
 		List<User> users=userDAO.queryAll();
 		s.close();
 		return users;
+	}
+
+	//检查账号密码
+	@Override
+	public User checkUser(String uname, String password) {
+		s=sf.openSession();
+		IUserDAO userDAO=s.getMapper(IUserDAO.class);
+		User user=userDAO.checkUser(uname, password);
+		s.close();
+		return user;
 	}
 
 }

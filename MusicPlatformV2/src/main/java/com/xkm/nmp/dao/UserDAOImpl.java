@@ -32,5 +32,23 @@ public class UserDAOImpl implements IUserDAO{
 		s.close();
 		return user;
 	}
+	
+     //×¢²á
+	@Override
+	public void addUser(User user) {
+		s=sf.openSession(true);
+		IUserDAO userDAO=s.getMapper(IUserDAO.class);
+		userDAO.addUser(user);
+		s.close();
+	}
+	
+   //É¾³ý
+	@Override
+	public void delUser(Integer uid) {
+		s=sf.openSession(true);
+		IUserDAO userDAO=s.getMapper(IUserDAO.class);
+		userDAO.delUser(uid);
+		s.close();
+	}
 
 }

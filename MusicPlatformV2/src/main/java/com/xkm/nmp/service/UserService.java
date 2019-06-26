@@ -18,4 +18,14 @@ public class UserService {
 		return dao.checkUser(uname, password);
 	}
 	
+	//×¢²á
+	public void addUser(User user) {
+		dao.addUser(user);
+	}
+	
+	//É¾³ý
+	public void delUser(Integer uid) {
+		dao.delUser(uid);
+	}
+	
 }

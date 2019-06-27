@@ -19,20 +19,23 @@
             <img src="frontImage/MusicMuseumLogo.jpg">
         </li>
         <li class="layui-nav-item loginNav">
-            <a>
-                <button id="loginNav" class="layui-btn layui-btn-normal">
-                    <i class="layui-icon layui-icon-username"></i>登录
-                </button>
+            <a href="javascript:openLoginWin();">
+                <i class="layui-icon layui-icon-username"></i>登录
             </a>
         </li>
         <li class="layui-nav-item registerNav">
-            <a>
-                <button id="registerNav" class="layui-btn layui-btn-normal">
-                    <i class="layui-icon layui-icon-username"></i>注册</span>
-                </button>
+            <a href="javascript:openRegisterWin();">
+                <i class="layui-icon layui-icon-add-circle"></i>注册
             </a>
         </li>
-        <li class="layui-nav-item searchNav"><input class="form-control" type="text" placeholder="搜索.."></li>
+        <li class="layui-nav-item searchNav">
+            <input class="form-control" type="text" placeholder="搜索..">
+        </li>
+        <li class="layui-nav-item creatorCenterNav">
+            <a href="javascript:openRegisterWin();">
+                <i class="layui-icon layui-icon-app"></i>创作者中心
+            </a>
+        </li>
         <li class="layui-nav-item  userNav">
             <a href=""><img src="frontImage/cnf1.jpg" class="layui-nav-img">我</a>
             <dl class="layui-nav-child">
@@ -79,7 +82,7 @@
         </div>
         <div class="layui-row layui-col-space10">
             <div class="layui-col-md4">
-                <table id="MusicList_tb" lay-filter="tbf"></table>
+                <table id="MusicList_tb" lay-filter="tbf" lay-skin="nob"></table>
             </div>
             <div class="layui-col-md6">
                 <div class="layui-tab">
@@ -91,15 +94,15 @@
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
                             <!-- 按单曲歌名查询的音乐数据表-->
-                            <table id="Music_tb_single" lay-filter="tbf"></table>
+                            <table id="Music_tb_single" lay-filter="tbf" lay-skin="nob"></table>
                         </div>
                         <div class="layui-tab-item">
                             <!-- 按歌单名查询的音乐数据表-->
-                            <table id="Music_tb_list" lay-filter="tbf"></table>
+                            <table id="Music_tb_list" lay-skin="nob"></table>
                         </div>
                         <div class="layui-tab-item">
                             <!-- 按歌手查询的音乐数据表-->
-                            <table id="Music_tb_singer" lay-filter="tbf"></table>
+                            <table id="Music_tb_singer" lay-skin="nob"></table>
                         </div>
                     </div>
                 </div>
@@ -113,7 +116,7 @@
 
         <div class="fix">
             <audio controls autoplay="autoplay">
-			<source src="何子天 - 何须问 - 阿卡贝拉（Cover：郭好为）.mp3" />
+			<source src="" />
 		</audio>
         </div>
     </div>

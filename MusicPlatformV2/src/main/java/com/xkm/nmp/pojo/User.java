@@ -12,6 +12,7 @@ public class User implements Serializable {
 	private Integer sex;
 	private String phone;
 	private String email;
+	private Integer status;
 
 	@Override
 	public String toString() {
@@ -65,5 +66,14 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 
 }

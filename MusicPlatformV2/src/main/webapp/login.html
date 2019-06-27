@@ -53,7 +53,8 @@
                 url: 'login',
                 data: fdata.field,
                 success: function(data) {
-                    if (data == 'ok') {
+                	console.log(data);
+                    if (data.uid!=1&&data.uid!=0) {
                         //操作成功，进行提示，并关闭当前窗口(设置时间，不然会有抖动情况)
                         layer.msg('登陆成功', {
                             time: 1000,
@@ -66,13 +67,17 @@
                             parent.location.reload();
                         });
 
-                    } else {
-                        layer.msg('登陆失败，请检查用户名或密码', {
+                    } else if(data.uid==0){
+                        layer.msg('账号被封禁，无法登陆', {
+                            icon: 2
+                        });
+                    }else{
+                    	layer.msg('请检查账号或密码', {
                             icon: 2
                         });
                     }
                 },
-                dataType: 'text'
+                dataType: 'json'
             });
             //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             return false;

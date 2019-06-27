@@ -1,13 +1,14 @@
 package com.xkm.nmp.web;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xkm.nmp.core.utils.GsonUtil;
 import com.xkm.nmp.pojo.User;
 import com.xkm.nmp.service.UserService;
 
@@ -35,9 +36,25 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String type = request.getParameter("type");
-		List<User> users = us.queryAll();
 		System.out.println(type);
-		users.forEach(u -> System.out.println(u.toString()));
+		PrintWriter pw = response.getWriter();
+		String uname = request.getParameter("uname");
+		String password = request.getParameter("password");
+		User user = us.checkUser(uname, password);
+		if (user != null && user.getStatus() != 0) {
+			String json = GsonUtil.getJsonString(user);
+			pw.print(json);
+		} else if (user != null && user.getStatus() == 0) {
+			User u0 = new User();
+			u0.setUid(0);
+			String json = GsonUtil.getJsonString(u0);
+			pw.print(json);
+		} else {
+			User u1 = new User();
+			u1.setUid(1);
+			String json = GsonUtil.getJsonString(u1);
+			pw.print(json);
+		}
 	}
 
 	/**

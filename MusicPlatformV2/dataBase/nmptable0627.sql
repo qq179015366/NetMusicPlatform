@@ -95,12 +95,13 @@ CREATE TABLE `user_table` (
   `sex` int(1) DEFAULT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `email` varchar(64) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
   PRIMARY KEY (`uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_table` */
 
-insert  into `user_table`(`uid`,`uname`,`password`,`sex`,`phone`,`email`) values (101,'流浪的小狗','123456',1,'15577757997','wanderingDog@163.com'),(102,'测试账号','123456',1,'15111111111','testUser@qq.com'),(103,'testAccount','123456',1,'15122255555','testAccount@gmail.com'),(104,'Jacob','123456',0,'13674825566','jacobWorkEmail@gmail.com');
+insert  into `user_table`(`uid`,`uname`,`password`,`sex`,`phone`,`email`,`status`) values (101,'流浪的小狗','123456',1,'15577757997','wanderingDog@163.com',1),(102,'测试账号','123456',1,'15111111111','testUser@qq.com',1),(103,'testAccount','123456',1,'15122255555','testAccount@gmail.com',0),(104,'Jacob','123456',0,'13674825566','jacobWorkEmail@gmail.com',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

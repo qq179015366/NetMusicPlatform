@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" />
+    <link rel="stylesheet" href="css/customNetMusic.css" />
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="layui/layui.js"></script>
+</head>
+
+<body>
+    <div class="layui-container">
+        <div class="layui-form-item layui-row layui-col-space10">
+            <h3 style="text-align: center">上传音乐</h3>
+        </div>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <input type="hidden" id="type" name="type" value="upload">
+            </div>
+            <div class="layui-form-item layui-row layui-col-space10">
+                <label class="layui-form-label layui-col-md2">音乐名</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="text" name="mname" id="mname" lay-verify="required" placeholder="请输入音乐名" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-form-item layui-row layui-col-space10">
+                <label class="layui-form-label layui-col-md2">音乐作者</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="text" name="author" id="author" lay-verify="required" placeholder="请输入音乐作者名" autocomplete="off" onkeyup="">
+                </div>
+            </div>
+            <div class="layui-form-item layui-row layui-col-space10">
+                <label class="layui-form-label layui-col-md2">选择曲风</label>
+                <div class="layui-input-block layui-col-md2">
+                    <select name="style" lay-filter="qufeng">
+						<option value="0">流行</option>
+                        <option value="1">古典</option>
+                        <option value="2">中国风</option>
+                        <option value="3">电音</option>
+                        <option value="4">摇滚</option>
+                        <option value="5">朋克</option>
+                        <option value="6">说唱</option>
+                        <option value="7">纯音乐</option>
+                        <option value="8">游戏动漫</option>
+                        <option value="9">说唱rap</option>
+                        <option value="10">民歌民乐</option>
+					</select>
+                </div>
+            </div>
+            <div class="layui-form-item layui-row layui-col-space10">
+                <label class="layui-form-label layui-col-md2">选择文件</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="text" name="author" id="author" lay-verify="required" placeholder="选择文件" autocomplete="off" onkeyup="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button id="upload" type="button" lay-submit class="layui-btn  layui-btn-normal" lay-filter="upload_btn">
+						上传</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use('form', function() {
+        var form = layui.form;
+    });
+</script>
+
+</html>

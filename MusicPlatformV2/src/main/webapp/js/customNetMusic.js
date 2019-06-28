@@ -13,21 +13,6 @@ btnright.onclick = nextPic;
 var btnleft = document.getElementById("btnleft");
 btnleft.onclick = prevPic;
 
-layui.use('layer', function() {
-    var layer = layui.layer;
-    //给登录按钮注册事件
-    $('#loginNav').on('click', function() {
-        openLoginWin();
-    });
-});
-
-layui.use('layer', function() {
-    var layer = layui.layer;
-    //给注册按钮注册事件
-    $('#registerNav').on('click', function() {
-        openRegisterWin();
-    });
-});
 
 /**
  * 用于打开登录窗口
@@ -57,7 +42,24 @@ function openRegisterWin() {
         type: 2,
         title: '注册',
         content: url,
-        area: ['550px', '350px'],
+        area: ['650px', '550px'],
+        maxmin: true
+
+    });
+}
+
+/**
+ * 用于打开上传音乐窗口
+ */
+function openCreatorCenterWin() {
+    var url = 'creatorCenter.html';
+
+    //弹出窗口
+    layer.open({
+        type: 2,
+        title: '创作者中心',
+        content: url,
+        area: ['650px', '550px'],
         maxmin: true
 
     });

@@ -18,6 +18,7 @@ import com.xkm.nmp.service.UserService;
 public class RegisterServlett extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UserService us=new UserService();
+    private User user=new User();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -32,25 +33,28 @@ public class RegisterServlett extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		
 		String type = request.getParameter("type");
-		System.out.println(type);
 		PrintWriter pw=response.getWriter();
 		String uname=request.getParameter("uname");
 		String password=request.getParameter("password");
 		String sex=request.getParameter("sex");
 		String phone=request.getParameter("phone");
 		String email=request.getParameter("email");
-		User user=new User();
 		user.setUname(uname);
 		user.setPassword(password);
 		user.setSex(Integer.parseInt(sex));
 		user.setPhone(phone);
 		user.setEmail(email);
 		user.setStatus(1);
-		System.out.println(user.toString());
-		us.addUser(user);
+		//为避免和之后的查询冲突，让新线程执行插入，主线程暂停一会等插入完成再查
+		new Thread() {
+			public void run() {
+				us.addUser(user);
+			}
+		}.start();
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

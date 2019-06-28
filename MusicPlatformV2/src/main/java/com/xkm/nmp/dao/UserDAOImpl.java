@@ -44,11 +44,21 @@ public class UserDAOImpl implements IUserDAO{
 	
    //删除
 	@Override
-	public void delUser(Integer uid) {
+	public void delUser(Long uid) {
 		s=sf.openSession(true);
 		IUserDAO userDAO=s.getMapper(IUserDAO.class);
 		userDAO.delUser(uid);
 		s.close();
+	}
+
+	//根据用户名查询
+	@Override
+	public User getUserByUname(String uname) {
+		s=sf.openSession();
+		IUserDAO userDAO=s.getMapper(IUserDAO.class);
+		User user=userDAO.getUserByUname(uname);
+		s.close();
+		return user;
 	}
 
 }

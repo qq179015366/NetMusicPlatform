@@ -25,8 +25,8 @@
 
 .searchNav {
     position: absolute;
-    left: 28%;
-    width: 12%;
+    left: 18%;
+    width: 17%;
 }
 
 .creatorCenterNav {
@@ -155,15 +155,19 @@ ul {
 }
 
 audio {
+    position: fixed;
+    bottom: 0;
+    left: 15%;
+    z-index: 99;
     display: block;
-    width: 100%;
+    width: 70%;
 }
 
 .fix {
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 99;
+    z-index: 90;
     background-color: rgba(0, 0, 0, .5);
     right: 0;
     text-align: center;

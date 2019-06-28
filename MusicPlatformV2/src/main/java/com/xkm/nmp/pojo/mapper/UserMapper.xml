@@ -29,11 +29,15 @@
 		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email,u.status FROM USER_table u WHERE UNAME=#{arg0} AND PASSWORD=#{arg1};
 	</select>
 	
+	<select id="getUserByUname" resultMap="userMap">
+		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email,u.status FROM USER_table u WHERE UNAME=#{arg0};
+	</select>
+	
 	<insert id="addUser" parameterType="User">
 		INSERT INTO USER_TABLE(UNAME,PASSWORD,SEX,PHONE,EMAIL,STATUS) VALUES(#{uname},#{password},#{sex},#{phone},#{email},#{status});
 	</insert>
 	
-	<update id="delUser" parameterType="java.lang.Integer">
+	<update id="delUser" parameterType="java.lang.Long">
 	   UPDATE  USER_TABLE SET STATUS = 0 WHERE UID = #{uid}
 	</update>
 </mapper>

@@ -24,8 +24,13 @@ public class UserService {
 	}
 	
 	//删除
-	public void delUser(Integer uid) {
+	public void delUser(Long uid) {
 		dao.delUser(uid);
+	}
+	
+	//根据用户名查询
+	public User getUserByUname(String uname) {
+		return dao.getUserByUname(uname);
 	}
 	
 }

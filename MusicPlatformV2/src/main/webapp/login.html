@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="layui/css/layui.css" />
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="layui/layui.all.js"></script>
     <script type="text/javascript" src="layui/layui.js"></script>
 </head>
 
 <body>
     <div class="layui-container">
         <div class="layui-form-item layui-row layui-col-space10">
-            <h3>用户名登录</h3>
+            <h3 style="text-align: center">用户名登录</h3>
         </div>
         <form class="layui-form">
             <div class="layui-form-item">
@@ -53,8 +52,8 @@
                 url: 'login',
                 data: fdata.field,
                 success: function(data) {
-                	console.log(data);
-                    if (data.uid!=1&&data.uid!=0) {
+                    console.log(data);
+                    if (data.uid != 1 && data.uid != 0) {
                         //操作成功，进行提示，并关闭当前窗口(设置时间，不然会有抖动情况)
                         layer.msg('登陆成功', {
                             time: 1000,
@@ -67,12 +66,12 @@
                             parent.location.reload();
                         });
 
-                    } else if(data.uid==0){
+                    } else if (data.uid == 0) {
                         layer.msg('账号被封禁，无法登陆', {
                             icon: 2
                         });
-                    }else{
-                    	layer.msg('请检查账号或密码', {
+                    } else {
+                        layer.msg('请检查账号或密码', {
                             icon: 2
                         });
                     }

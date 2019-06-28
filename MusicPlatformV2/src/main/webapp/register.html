@@ -2,121 +2,109 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="layui/css/layui.css" />
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="layui/layui.all.js"></script>
-	<script type="text/javascript" src="layui/layui.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" />
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="layui/layui.js"></script>
 </head>
 
 <body>
-	<div class="layui-container">
-		<div class="layui-form-item layui-row layui-col-space10">
-			<h3>用户注册</h3>
-		</div>
-		<form class="layui-form">
-			<div class="layui-form-item">
-				<input type="hidden" id="type" name="type" value="register">
-			</div>
-			<div class="layui-form-item layui-row layui-col-space10">
-				<label class="layui-form-label layui-col-md2">用户名</label>
-				<div class="layui-input-block layui-col-md3">
-					<input class="layui-input" type="text" name="uname" id="uname" lay-verify="required"
-						placeholder="请输入用户名" autocomplete="off">
-				</div>
-			</div>
-			<div class="layui-form-item layui-row layui-col-space10">
-				<label class="layui-form-label layui-col-md2">密码</label>
-				<div class="layui-input-block layui-col-md3">
-					<input class="layui-input" type="password" name="password" id="password" lay-verify="required|pass"
-						placeholder="请输入密码" autocomplete="off">
-				</div>
-				<div id="pwd_prompt"></div>
-			</div>
-			<div class="layui-form-item layui-row layui-col-space10">
-				<label class="layui-form-label layui-col-md2">确认密码</label>
-				<div class="layui-input-block layui-col-md3">
-					<input class="layui-input" type="password" name="password1" id="password1"
-						lay-verify="required|rePassword" placeholder="确认密码" autocomplete="off">
-				</div>
-				<div id="repwd_prompt"></div>
-			</div>
-			<div class="layui-form-item layui-row layui-col-space10">
-				<label class="layui-form-label layui-col-md2">性别</label>
-				<div class="layui-input-block layui-col-md3">
-					<select name="sex" lay-filter="xingbie">
+    <div class="layui-container">
+        <div class="layui-form-item layui-row">
+            <h3 style="text-align: center">用户注册</h3>
+        </div>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <input type="hidden" id="type" name="type" value="register">
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">用户名</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="text" name="uname" id="uname" lay-verify="required" placeholder="请输入用户名" autocomplete="off">
+                </div>
+                <div class="layui-col-md2" id="uname_prompt"></div>
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">密码</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="password" name="password" id="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" onkeyup="passwordTest()">
+                </div>
+                <div class="layui-col-md2" id="pwd_prompt"></div>
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">确认密码</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="password" name="password1" id="password1" lay-verify="required|rePassword" placeholder="确认密码" autocomplete="off">
+                </div>
+                <div class="layui-col-md2" id="repwd_prompt"></div>
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">性别</label>
+                <div class="layui-input-block layui-col-md2">
+                    <select name="sex" lay-filter="xingbie">
 						<option value="0">女</option>
 						<option value="1">男</option>
 					</select>
-				</div>
-			</div>
-			<div class="layui-form-item layui-row layui-col-space10">
-				<label class="layui-form-label layui-col-md2">手机号</label>
-				<div class="layui-input-block layui-col-md3">
-					<input class="layui-input" type="text" name="phone" id="phone" lay-verify="required|pho"
-						placeholder="请输入手机号" autocomplete="off">
-				</div>
-				<div id="phone_prompt"></div>
-			</div>
-			<div class="layui-form-item layui-row layui-col-space10">
-				<label class="layui-form-label layui-col-md2">邮箱</label>
-				<div class="layui-input-block layui-col-md3">
-					<input class="layui-input" type="text" name="email" id="email" lay-verify="required|email"
-						placeholder="请输入邮箱地址" autocomplete="off">
-				</div>
-				<div id="email_prompt"></div>
-			</div>
-			<div class="layui-form-item">
-				<div class="layui-input-block">
-					<button id="login" type="button" lay-submit class="layui-btn  layui-btn-normal"
-						lay-filter="register_btn">
+                </div>
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">手机号</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="text" name="phone" id="phone" lay-verify="required|pho" placeholder="请输入手机号" autocomplete="off">
+                </div>
+                <div class="layui-col-md2" id="phone_prompt"></div>
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">邮箱</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="text" name="email" id="email" lay-verify="required|email" placeholder="请输入邮箱地址" autocomplete="off">
+                </div>
+                <div class="layui-col-md2" id="email_prompt"></div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button id="login" type="button" lay-submit class="layui-btn  layui-btn-normal" lay-filter="register_btn">
 						注册</button>
-				</div>
-			</div>
-		</form>
-	</div>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 <script>
-	layui.use('form', function () {
-		var form = layui.form;
-		form.verify({
-			pass: [
-				/^[\S]{6,20}$/
-				, '密码必须6到20位，且不能出现空格'
-			],
-			rePassword: function (value) {
-				var passvalue = $('#password').val();
-				var repassvalue = $('#password1').val();
-				if (passvalue !== repassvalue) {
-					return '两次输入密码不一致!';
-				}
-			}, pho: [/^1\d{10}$/,
-				'手机号码不正确，请重新输入'
-
-			]
-		});
-		form.on('submit(register_btn)',function(data){
-			$.ajax({
-				method:'post',
-				url:'register',
-				data:data.field,
-				success:function(data){
-					if(data.uid!=null){
-						layer.msg('注册成功', {
+    layui.use('form', function() {
+        var form = layui.form;
+        form.on('submit(register_btn)', function(data) {
+            $.ajax({
+                method: 'post',
+                url: 'register',
+                data: data.field,
+                success: function(data) {
+                    if (data.uid != null) {
+                        layer.msg('注册成功', {
                             time: 1000,
                             icon: 1
                         })
-					}
-				},
-				dataType:'json'
-			});
-			return false;
-		})
-	})
+                    }
+                },
+                dataType: 'json'
+            });
+            return false;
+        })
+    })
 
-
+    function passwordTest() {
+        var value = $("#password").val();
+        if (value.length < 6 || value.length > 20) {
+            $("#password").focus();
+            $('#pwd_prompt').html('<font color="red">密码格式不正确</font>');
+        } else {
+            $('#pwd_prompt').html('');
+        }
+    }
 </script>
 
 </html>

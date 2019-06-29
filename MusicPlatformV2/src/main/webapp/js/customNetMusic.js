@@ -65,6 +65,8 @@ function openCreatorCenterWin() {
     });
 }
 
+
+
 function setLinebColor() {
     for (var i = 0; i < aSpan.length; i++) {
         aSpan[i].style.backgroundColor = "#ccc";

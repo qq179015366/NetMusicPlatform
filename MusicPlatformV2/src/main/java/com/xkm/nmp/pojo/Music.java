@@ -7,19 +7,20 @@ public class Music implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer mid;
+	private Long mid;
 	private String mname;
 	private String author;
 	private Integer style;
-	private Integer uploader;
+	private Long uploader;
 	private Integer playtimes;
 	private Date uploaddate;
 	private String lyric;
 	private int status;
-	public int getMid() {
+	
+	public Long getMid() {
 		return mid;
 	}
-	public void setMid(int mid) {
+	public void setMid(Long mid) {
 		this.mid = mid;
 	}
 	public String getMname() {
@@ -34,22 +35,22 @@ public class Music implements Serializable{
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public int getStyle() {
+	public Integer getStyle() {
 		return style;
 	}
-	public void setStyle(int style) {
+	public void setStyle(Integer style) {
 		this.style = style;
 	}
-	public int getUploader() {
+	public Long getUploader() {
 		return uploader;
 	}
-	public void setUploader(int uploader) {
+	public void setUploader(Long uploader) {
 		this.uploader = uploader;
 	}
-	public int getPlaytimes() {
+	public Integer getPlaytimes() {
 		return playtimes;
 	}
-	public void setPlaytimes(int playtimes) {
+	public void setPlaytimes(Integer playtimes) {
 		this.playtimes = playtimes;
 	}
 	public Date getUploaddate() {
@@ -70,4 +71,5 @@ public class Music implements Serializable{
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
 }

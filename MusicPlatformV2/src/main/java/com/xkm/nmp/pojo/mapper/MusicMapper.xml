@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- namespace:命名空间，该值与接口保持一致 -->
+<mapper namespace="com.xkm.nmp.dao.IMusicDAO">
+	<!-- 开启二级缓存，默认情况下没有有开启的 -->
+	<cache />
+	<!-- 定义Pojo类属性与数据表字段对应关系 -->
+	<resultMap type="Music" id="musicMap">
+		<id property="mid" column="mid" />
+		<result property="mname" column="mname" />
+		<result property="author" column="author" />
+		<result property="style" column="style" />
+		<result property="uploader" column="uploader" />
+		<result property="playtimes" column="playtimes" />
+		<result property="uploaddate" column="uploaddate" />
+		<result property="lyric" column="lyric" />
+		<result property="status" column="status" />
+				<!-- 关联关系：多对一 -->
+
+	</resultMap>
+	
+	<!-- 添加歌曲-->
+	<insert id="addMusic" parameterType="Music">
+		INSERT INTO MUSIC_TABLE(MNAME,AUTHOR,STYLE,UPLOADER,PLAYTIMES,UPLOADDATE,LYRIC,STATUS)
+		 VALUES(#{mname},#{author},#{style},#{uploader},#{playtimes},#{uploaddate},#{lyric},#{status});
+	</insert>
+	
+	<!-- 删除歌曲 -->
+	<update id="delMusic" parameterType="java.lang.Long">
+	UPDATE MUSIC_TABLE SET STATUS = 2 WHERE MID = #{mid}
+	</update>
+
+	<!-- 恢复歌曲-->
+	<update id="renewMusic" parameterType="java.lang.Long">
+	UPDATE MUSIC_TABLE SET STATUS = 1 WHERE MID = #{mid}
+	</update>
+</mapper>

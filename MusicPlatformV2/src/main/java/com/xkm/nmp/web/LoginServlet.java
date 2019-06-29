@@ -36,24 +36,33 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		String type = request.getParameter("type");
-		System.out.println(type);
 		PrintWriter pw = response.getWriter();
-		String uname = request.getParameter("uname");
-		String password = request.getParameter("password");
-		User user = us.checkUser(uname, password);
-		if (user != null && user.getStatus() != 0) {
-			String json = GsonUtil.getJsonString(user);
-			pw.print(json);
-		} else if (user != null && user.getStatus() == 0) {
-			User u0 = new User();
-			u0.setUid(0);
-			String json = GsonUtil.getJsonString(u0);
-			pw.print(json);
-		} else {
-			User u1 = new User();
-			u1.setUid(1);
-			String json = GsonUtil.getJsonString(u1);
-			pw.print(json);
+		if("login".equals(type)) {
+			String uname = request.getParameter("uname");
+			String password = request.getParameter("password");
+			User user = us.checkUser(uname, password);
+			if (user != null && user.getStatus() != 0) {
+				String json = GsonUtil.getJsonString(user);
+				pw.print(json);
+			} else if (user != null && user.getStatus() == 0) {
+				User u0 = new User();
+				u0.setUid((long) 0);
+				String json = GsonUtil.getJsonString(u0);
+				pw.print(json);
+			} else {
+				User u1 = new User();
+				u1.setUid((long) 1);
+				String json = GsonUtil.getJsonString(u1);
+				pw.print(json);
+			}
+		}else if("unameTest".equals(type)) {
+			String uname=request.getParameter("uname");
+			User user=us.getUserByUname(uname);
+			System.out.println(uname);
+			if(user!=null) 
+				pw.print("exist");
+			else
+				pw.print("ok");
 		}
 	}
 

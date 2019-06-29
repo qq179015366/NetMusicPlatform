@@ -15,28 +15,28 @@
 
 .loginNav {
     position: absolute;
-    left: 16%;
+    left: 50%;
 }
 
 .registerNav {
     position: absolute;
-    left: 17%;
+    left: 51%;
 }
 
 .searchNav {
     position: absolute;
-    left: 28%;
-    width: 12%;
+    left: 15%;
+    width: 20%;
 }
 
 .creatorCenterNav {
     position: absolute;
-    left: 42%;
+    left: 50%;
 }
 
 .userNav {
     position: absolute;
-    left: 45%;
+    left: 52%;
 }
 
 
@@ -73,7 +73,8 @@ ul {
     width: 50px;
     height: 50px;
     background-color: rgba(0, 0, 0, 0.2);
-    font-size: 22px;
+    font-size: 27px;
+    font-weight: bolder;
     text-align: center;
     line-height: 50px;
     z-index: 10;
@@ -155,15 +156,19 @@ ul {
 }
 
 audio {
+    position: fixed;
+    bottom: 0;
+    left: 15%;
+    z-index: 99;
     display: block;
-    width: 100%;
+    width: 70%;
 }
 
 .fix {
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 99;
+    z-index: 90;
     background-color: rgba(0, 0, 0, .5);
     right: 0;
     text-align: center;

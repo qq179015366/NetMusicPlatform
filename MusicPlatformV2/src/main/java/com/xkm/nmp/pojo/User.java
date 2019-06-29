@@ -6,7 +6,7 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer uid;
+	private Long uid;
 	private String uname;
 	private String password;
 	private Integer sex;
@@ -19,11 +19,11 @@ public class User implements Serializable {
 		return uid + "," + uname + "," + password + "," + sex + "," + phone + "," + email;
 	}
 
-	public Integer getUid() {
+	public Long getUid() {
 		return uid;
 	}
 
-	public void setUid(Integer uid) {
+	public void setUid(Long uid) {
 		this.uid = uid;
 	}
 
@@ -74,6 +74,5 @@ public class User implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
 
 }

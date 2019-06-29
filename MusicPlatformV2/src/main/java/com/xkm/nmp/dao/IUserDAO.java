@@ -16,6 +16,9 @@ public interface IUserDAO {
 	public void addUser(User user);
 	
 	//删除
-	public void delUser(Integer uid);
+	public void delUser(Long uid);
+	
+	//根据用户名查询
+	public User getUserByUname(String uname);
 	
 }

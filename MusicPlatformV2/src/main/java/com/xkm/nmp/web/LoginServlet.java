@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			User user = us.checkUser(uname, password);
 			if (user != null && user.getStatus() != 0) {
+				request.getSession().setAttribute("user", user);
 				String json = GsonUtil.getJsonString(user);
 				pw.print(json);
 			} else if (user != null && user.getStatus() == 0) {

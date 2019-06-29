@@ -30,13 +30,18 @@
         <li class="layui-nav-item searchNav">
             <input class="form-control" type="text" placeholder="搜索..">
         </li>
+        <li class="layui-nav-item searchIconNav">
+            <a href="javascript:openRegisterWin();">
+                <i class="layui-icon layui-icon-search"></i>搜索
+            </a>
+        </li>
         <li class="layui-nav-item creatorCenterNav">
             <a href="javascript:openCreatorCenterWin();">
                 <i class="layui-icon layui-icon-app"></i>创作者中心
             </a>
         </li>
-        <li class="layui-nav-item  userNav">
-            <a href=""><img src="frontImage/cnf1.jpg" class="layui-nav-img">我</a>
+        <li class="layui-nav-item userNav">
+            <a id="me" href=""><img src="frontImage/cnf1.jpg" class="layui-nav-img">我</a>
             <dl class="layui-nav-child">
                 <dd>
                     <a href="javascript:;">修改信息</a>
@@ -120,7 +125,47 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="js/loadIndex.js"></script>
+<script type="text/javascript">
+    $(function() {
+        loadData();
+    });
+
+    function loadData() {
+        logOutPage();
+    }
+
+    function logOutPage() {
+        $(".loginNav").css({
+            "display": "inline-block"
+        });
+        $(".registerNav").css({
+            "display": "inline-block"
+        });
+        $(".creatorCenterNav").css({
+            "display": "none"
+        });
+        $(".userNav").css({
+            "display": "none"
+        });
+    }
+
+    function loggedInPage(user) {
+        $(".loginNav").css({
+            "display": "none"
+        });
+        $(".registerNav").css({
+            "display": "none"
+        });
+        $(".creatorCenterNav").css({
+            "display": "inline-block"
+        });
+        $(".userNav").css({
+            "display": "inline-block"
+        });
+        $(".userNav #me").html('<img src="frontImage/cnf1.jpg" class="layui-nav-img">' + user.uname);
+    }
+</script>
+
 <!--layui界面js-->
 <script type="text/javascript" src="js/dataProcessing.js"></script>
 <!--js-->

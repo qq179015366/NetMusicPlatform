@@ -13,30 +13,35 @@
     left: 15%;
 }
 
+.searchNav {
+    position: absolute;
+    left: 17%;
+    width: 18%;
+}
+
+.searchIconNav {
+    position: absolute;
+    left: 20%;
+}
+
 .loginNav {
     position: absolute;
-    left: 50%;
+    left: 52%;
 }
 
 .registerNav {
     position: absolute;
-    left: 51%;
-}
-
-.searchNav {
-    position: absolute;
-    left: 15%;
-    width: 20%;
+    left: 54%;
 }
 
 .creatorCenterNav {
     position: absolute;
-    left: 50%;
+    left: 40%;
 }
 
 .userNav {
     position: absolute;
-    left: 52%;
+    left: 41%;
 }
 
 

@@ -13,7 +13,6 @@ btnright.onclick = nextPic;
 var btnleft = document.getElementById("btnleft");
 btnleft.onclick = prevPic;
 
-
 /**
  * 用于打开登录窗口
  */
@@ -64,8 +63,6 @@ function openCreatorCenterWin() {
 
     });
 }
-
-
 
 function setLinebColor() {
     for (var i = 0; i < aSpan.length; i++) {

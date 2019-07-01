@@ -83,8 +83,8 @@
                     method: 'post',
                     url: 'register',
                     data: data.field,
-                    success: function(data) {
-                        if (data.uid != null) {
+                    success: function(returndata) {
+                        if (returndata.uid != null) {
                             layer.msg('注册成功', {
                                 time: 1000,
                                 icon: 1
@@ -92,8 +92,8 @@
                                 //先得到当前iframe层的索引,再执行关闭 
                                 var index = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(index);
-                                //刷新父页面
-                                parent.location.reload();
+
+                                window.parent.loggedInPage(returndata);
                             });
                         }
                     },

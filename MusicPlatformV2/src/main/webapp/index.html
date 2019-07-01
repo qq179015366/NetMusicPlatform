@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>云音乐</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="layui/css/layui.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/customNetMusic.css" />
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/audio.css">
 
 </head>
 
@@ -19,25 +18,25 @@
         </li>
         <li class="layui-nav-item loginNav">
             <a href="javascript:openLoginWin();">
-                <i class="layui-icon layui-icon-username"></i>登录
+                <i class="layui-icon layui-icon-username" style="font-size: 20px;color:rgb(225,225,225,0.75)"></i> 登录
             </a>
         </li>
         <li class="layui-nav-item registerNav">
             <a href="javascript:openRegisterWin();">
-                <i class="layui-icon layui-icon-add-circle"></i>注册
+                <i class="layui-icon layui-icon-add-circle" style="font-size: 20px;color:rgb(225,225,225,0.75)"></i> 注册
             </a>
         </li>
         <li class="layui-nav-item searchNav">
-            <input class="form-control" type="text" placeholder="搜索..">
-        </li>
-        <li class="layui-nav-item searchIconNav">
-            <a href="javascript:openRegisterWin();">
-                <i class="layui-icon layui-icon-search"></i>搜索
-            </a>
+            <div class="input-group">
+                <input id="searchText" class="form-control" type="text" placeholder="搜索..">
+                <span onclick="search()" class="input-group-addon" id="basic-addon1" style="background-color:rgba(255, 255, 255, 0.75)">
+                    <i class="layui-icon layui-icon-search"></i>
+                </span>
+            </div>
         </li>
         <li class="layui-nav-item creatorCenterNav">
             <a href="javascript:openCreatorCenterWin();">
-                <i class="layui-icon layui-icon-app"></i>创作者中心
+                <i class="layui-icon layui-icon-upload-drag" style="font-size: 20px;color:rgb(225,225,225,0.75)"></i> 创作者中心
             </a>
         </li>
         <li class="layui-nav-item userNav">
@@ -53,7 +52,7 @@
                     <a href="javascript:;">管理</a>
                 </dd>
                 <dd>
-                    <a href="javascript:;">退出</a>
+                    <a href="javascript:exitLogin();">退出</a>
                 </dd>
             </dl>
         </li>
@@ -64,8 +63,8 @@
             <div class="carouselContent">
                 <div class="imglist">
                     <ul>
-                        <li class="ilist1"><img src="frontImage/lb1.jpg"></li>
-                        <li class="ilist2"><img src="frontImage/lb2.jpg"></li>
+                        <li class="ilist1"><img src="frontImage/lb7.jpg"></li>
+                        <li class="ilist2"><img src="frontImage/lb8.jpg"></li>
                         <li class="ilist3"><img src="frontImage/lb3.jpg"></li>
                         <li class="ilist4"><img src="frontImage/lb4.jpg"></li>
                         <li class="ilist5"><img src="frontImage/lb5.jpg"></li>
@@ -85,10 +84,10 @@
             </div>
         </div>
         <div class="layui-row layui-col-space10">
-            <div class="layui-col-md4">
+            <div class="layui-col-md2">
                 <table id="MusicList_tb" lay-filter="tbf" lay-skin="nob"></table>
             </div>
-            <div class="layui-col-md6">
+            <div class="layui-col-md8">
                 <div class="layui-tab">
                     <ul class="layui-tab-title">
                         <li class="layui-this">单曲</li>
@@ -98,15 +97,65 @@
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
                             <!-- 按单曲歌名查询的音乐数据表-->
-                            <table id="Music_tb_single" lay-filter="tbf" lay-skin="nob"></table>
+                            <table class="layui-table" lay-size="lg" lay-skin="nob">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">歌曲名</th>
+                                        <th scope="col">作者</th>
+                                        <th scope="col">试听</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="musicList" id="music">
+
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>
+                                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="goMusicPageFirst()">首页</button>
+                                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="goMusicPagePrev()">上一页</button>
+                                            <i class="layui-icon layui-icon-table" id="pageInfo" style="font-size: 12px;color:rgb(55,55,55,0.75)"></i>
+                                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="goMusicPageNext()">下一页</button>
+                                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="goMusicPageLast()">末页</button>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                            <form id="musicPagerform" method="post" action="search">
+                                <input type="hidden" name="type" value="searchMusic" id="type">
+                                <input type="hidden" name="searchCondition" value="" id="searchCondition">
+                                <input type="hidden" name="currentPage" value="" id="currentPage">
+                                <input type="hidden" name="totalData" value="" id="totalData">
+                                <input type="hidden" name="pageSize" value="" id="pageSize">
+                                <input type="hidden" name="pageNum" value="" id="pageNum">
+                            </form>
                         </div>
                         <div class="layui-tab-item">
-                            <!-- 按歌单名查询的音乐数据表-->
-                            <table id="Music_tb_list" lay-skin="nob"></table>
+                            <!-- 按歌手查询的数据表-->
+                            <table class="layui-table" lay-skin="nob">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">作者</th>
+                                        <th scope="col">作品</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="authorList" id="authorList">
+
+                                </tbody>
+                            </table>
                         </div>
                         <div class="layui-tab-item">
-                            <!-- 按歌手查询的音乐数据表-->
-                            <table id="Music_tb_singer" lay-skin="nob"></table>
+                            <!-- 按歌单查询的歌单数据表-->
+                            <thead>
+                                <tr>
+                                    <th scope="col">歌单名</th>
+                                    <th scope="col">详细</th>
+                                </tr>
+                            </thead>
+                            <tbody class="authorList" id="authorList">
+
+                            </tbody>
                         </div>
                     </div>
                 </div>
@@ -118,22 +167,114 @@
             </div>
         </div>
 
-        <div class="fix">
-            <audio controls autoplay="autoplay">
-			    <source src="" />
-		    </audio>
+        <div class="layui-row layui-col-space10">
+
+        </div>
+
+        <div class="layui-row layui-col-space10">
+            <footer>Copyright (c) 2019 第五项目组 All Rights Reserved.</footer>
+        </div>
+
+        <!--播放器-->
+        <div class="audio-box">
+            <div class="audio-container">
+                <div class="audio-cover"></div>
+                <div class="audio-view">
+                    <h3 class="audio-title">未知歌曲</h3>
+                    <div class="audio-body">
+                        <div class="audio-backs">
+                            <div class="audio-this-time">00:00</div>
+                            <div class="audio-count-time">00:00</div>
+                            <div class="audio-setbacks">
+                                <i class="audio-this-setbacks">
+                                        <span class="audio-backs-btn"></span>
+                                    </i>
+                                <span class="audio-cache-setbacks">
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="audio-btn">
+                        <div class="audio-select">
+                            <div class="audio-prev"></div>
+                            <div class="audio-play"></div>
+                            <div class="audio-next"></div>
+                            <div class="audio-menu"></div>
+                            <div class="audio-volume"></div>
+                        </div>
+                        <div class="audio-set-volume">
+                            <div class="volume-box">
+                                <i><span></span></i>
+                            </div>
+                        </div>
+                        <div class="audio-list">
+                            <div class="audio-list-head">
+                                <p>☺随心听</p>
+                                <span class="menu-close">关闭</span>
+                            </div>
+                            <ul class="audio-inline">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
+<!--layui界面js-->
+<script type="text/javascript" src="layui/layui.js"></script>
+<!--js-->
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/customNetMusic.js"></script>
+<!--播放器js-->
+<script type="text/javascript" src="js/audio.js"></script>
 <script type="text/javascript">
+    /*初始化载入数据*/
     $(function() {
+        logOutPage();
         loadData();
+        loadMusicPlayer(null);
+        loadMusicDatax();
+        getMusicPager();
     });
 
-    function loadData() {
-        logOutPage();
+    /*layui组件*/
+    layui.use('element', function() {
+        var element = layui.element;
+    });
+    layui.use('layer', function() {
+        var layer = layui.layer;
+    });
+
+    /*搜索事件*/
+    function search() {
+        var searchText = $("#searchText").val();
+        $("#searchCondition").val(searchText);
+        $("#currentPage").val('');
+        loadMusicDatax();
+        getMusicPager();
     }
 
+    /*界面载入是否登录*/
+    function loadData() {
+        $.ajax({
+            url: 'login',
+            method: 'post',
+            data: {
+                'type': 'loadData'
+            },
+            success: function(returndata) {
+                if (returndata != null && returndata.uid != -1) {
+                    loggedInPage(returndata);
+                } else {
+                    logOutPage();
+                }
+            },
+            dataType: 'json'
+        });
+    }
+
+    /*载入未登录页面*/
     function logOutPage() {
         $(".loginNav").css({
             "display": "inline-block"
@@ -149,6 +290,7 @@
         });
     }
 
+    /*载入已登录页面*/
     function loggedInPage(user) {
         $(".loginNav").css({
             "display": "none"
@@ -164,11 +306,171 @@
         });
         $(".userNav #me").html('<img src="frontImage/cnf1.jpg" class="layui-nav-img">' + user.uname);
     }
-</script>
 
-<!--layui界面js-->
-<script type="text/javascript" src="js/dataProcessing.js"></script>
-<!--js-->
-<script type="text/javascript" src="js/customNetMusic.js"></script>
+    /*搜索歌曲数据*/
+    function loadMusicDatax() {
+        var type = $("#musicPagerform>#type").val();
+        var searchCondition = $("#musicPagerform>#searchCondition").val();
+        var currentPage = $("#musicPagerform>#currentPage").val();
+        var totalData = $("#musicPagerform>#totalData").val();
+        var pageSize = $("#musicPagerform>#pageSize").val();
+        var pageNum = $("#musicPagerform>#pageNum").val();
+
+        $.ajax({
+            url: 'search',
+            type: 'POST',
+            data: {
+                'type': type,
+                'searchCondition': searchCondition,
+                'currentPage': currentPage,
+                'totalData': totalData,
+                'pageSize': pageSize,
+                'pageNum': pageNum
+            },
+            success: function(returndata) {
+                var tr = '';
+                $.each(returndata.data, function(index, val) {
+                    if (searchCondition != '') {
+                        var mname0 = `${val.mname}`;
+                        var mname1 = keyWordHighlight(mname0, searchCondition);
+                        var author0 = `${val.author}`;
+                        var author1 = keyWordHighlight(author0, searchCondition);
+                        tr = tr + `
+                        <tr>
+                            <td>` + mname1 + `</td>
+                            <td>` + author1 + `</td>
+                            <td>
+                                <i onclick="initPlayer('${val.mname}', '${val.uploader}', '${val.mname}')" class="layui-icon layui-icon-play"></i>
+                            </td>
+                        <tr>
+                         `;
+                    } else {
+                        tr += `
+                        <tr>
+                            <td>${val.mname}</td>
+                            <td>${val.author}</td>
+                            <td>
+                                <i onclick="initPlayer('${val.mname}', '${val.uploader}', '${val.mname}')" class="layui-icon layui-icon-play"></i>
+                            </td>
+                        <tr>
+                         `;
+                    }
+                    $("#currentPage").val(returndata.pager.currentPage);
+                    $("#totalData").val(returndata.pager.totalData);
+                    $("#pageSize").val(returndata.pager.pageSize);
+                    $("#pageNum").val(returndata.pager.pageNum);
+                    $("#pageInfo").html("当前第" + returndata.pager.currentPage + "页/共" + returndata.pager.pageNum + "页");
+                });
+                $("#music").html(tr);
+            },
+            dataType: 'json'
+        })
+    }
+
+    //获取单曲页信息
+    function getMusicPager() {
+
+    }
+
+    function goMusicPageFirst() {
+        var p = 1;
+        $("#currentPage").val(p.toString());
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    function goMusicPagePrev() {
+        var p = parseInt($("#currentPage").val());
+        if ((p - 1) >= 1) {
+            $("#currentPage").val((p - 1).toString());
+        }
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    function goMusicPageNext() {
+        var p = parseInt($("#currentPage").val());
+        var last = parseInt($("#pageNum").val());
+        if ((p + 1) <= last) {
+            $("#currentPage").val((p + 1).toString());
+        }
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    function goMusicPageLast() {
+        var p = $("#pageNum").val();
+        $("#currentPage").val(p);
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    function initPlayer(mname, uploader, title) {
+        var Music = [{
+            'cover': 'images/cover2.jpg',
+            'src': "musicPool/" + mname + "_" + uploader + ".mp3",
+            'title': title
+        }];
+        console.log(Music[0].src);
+        loadMusicPlayer(Music);
+    }
+
+
+    /*载入播放器*/
+    function loadMusicPlayer(Music) {
+        var song = Music;
+
+        var audioFn = audioPlay({
+            song: song,
+            autoPlay: true //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+        });
+
+        /* 向歌单中添加新曲目，第二个参数true为新增后立即播放该曲目，false则不播放 */
+        audioFn.newSong({
+            'cover': 'images/cover4.jpg',
+            'src': 'ss.mp3',
+            'title': '极乐净土 - GARNiDELiA'
+        }, false);
+
+        /* 暂停播放 */
+        audioFn.stopAudio();
+
+        /* 开启播放 */
+        audioFn.playAudio();
+
+        /* 选择歌单中索引为3的曲目(索引是从0开始的)，第二个参数true立即播放该曲目，false则不播放 */
+        audioFn.selectMenu(3, true);
+
+        /* 查看歌单中的曲目 */
+        //console.log(audioFn.song);
+
+        /* 当前播放曲目的对象 */
+        //console.log(audioFn.audio);
+    }
+
+    /*退出登录事件*/
+    function exitLogin() {
+        $.ajax({
+            url: 'login',
+            method: 'post',
+            data: {
+                'type': 'exit'
+            },
+            success: function(returndata) {
+                if (returndata == 'ok') {
+                    logOutPage();
+                }
+            },
+            dataType: 'text'
+        });
+    }
+
+    /*关键字变红*/
+    function keyWordHighlight(str, target) {
+        var reg = new RegExp("(" + target + ")", "g");
+        var newstr = str.replace(reg, "<font color=red>$1</font>");
+        return newstr;
+    }
+</script>
 
 </html>

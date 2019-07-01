@@ -26,12 +26,12 @@
 
 .loginNav {
     position: absolute;
-    left: 52%;
+    left: 59%;
 }
 
 .registerNav {
     position: absolute;
-    left: 54%;
+    left: 60%;
 }
 
 .creatorCenterNav {
@@ -149,6 +149,9 @@ ul {
     height: 3px;
     background-color: #cccccc;
 }
+
+
+/*表格*/
 
 
 /*底部播放区*/

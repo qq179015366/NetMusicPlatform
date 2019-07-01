@@ -37,7 +37,9 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		String type = request.getParameter("type");
 		PrintWriter pw = response.getWriter();
-		if("login".equals(type)) {
+
+		if ("login".equals(type)) {
+			// 登录
 			String uname = request.getParameter("uname");
 			String password = request.getParameter("password");
 			User user = us.checkUser(uname, password);
@@ -53,17 +55,35 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				User u1 = new User();
 				u1.setUid((long) 1);
-				String json = GsonUtil.getJsonString(u1);
-				pw.print(json);
+				String jsondata = GsonUtil.getJsonString(u1);
+				pw.print(jsondata);
 			}
-		}else if("unameTest".equals(type)) {
-			String uname=request.getParameter("uname");
-			User user=us.getUserByUname(uname);
-			System.out.println(uname);
-			if(user!=null) 
+		} else if ("unameTest".equals(type)) {
+			// 验证用户名
+			String uname = request.getParameter("uname");
+			User user = us.getUserByUname(uname);
+			if (user != null)
 				pw.print("exist");
 			else
 				pw.print("ok");
+		} else if ("loadData".equals(type)) {
+			//载入数据
+			User user=null;
+			try {
+				user=(User)request.getSession().getAttribute("user");
+				if(user==null) {
+					user=new User();
+					user.setUid((long)-1);
+				}
+			} catch (Exception e) {
+				user=new User();
+				user.setUid((long)-1);
+			}
+			String jsondata=GsonUtil.getJsonString(user);
+			pw.print(jsondata);
+		}else if("exit".equals(type)) {
+			request.getSession().invalidate();
+			pw.print("ok");
 		}
 	}
 

@@ -12,7 +12,7 @@
 
 <body>
     <div class="layui-container">
-        <div class="layui-form-item layui-row layui-col-space10">
+        <div class="layui-row layui-col-space10">
             <h3 style="text-align: center">用户名登录</h3>
         </div>
         <form class="layui-form">
@@ -20,15 +20,23 @@
                 <input type="hidden" id="type" name="type" value="login">
             </div>
             <div class="layui-form-item layui-row layui-col-space10">
-                <label class="layui-form-label layui-col-md2">用户名</label>
-                <div class="layui-input-block layui-col-md2">
-                    <input class="layui-input" type="text" name="uname" id="uname" lay-verify="required" placeholder="请输入用户名" autocomplete="off">
+                <div class="layui-col-md3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" style="background-color:rgba(190, 150, 0, 0.5)">
+                            <i class="layui-icon layui-icon-username" style="font-size: 18px;color:rgb(0,0,0,0.75)"></i>
+                        </span>
+                        <input class="form-control" type="text" name="uname" id="uname" lay-verify="required" placeholder="请输入用户名" autocomplete="off">
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-space10">
-                <label class="layui-form-label layui-col-md2">密码</label>
-                <div class="layui-input-block layui-col-md2">
-                    <input class="layui-input" type="password" name="password" id="password" lay-verify="required" placeholder="请输入密码" autocomplete="off">
+                <div class="layui-col-md3">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1" style="background-color:rgba(190, 150, 0, 0.5)">
+                            <i class="layui-icon layui-icon-password" style="font-size: 18px;color:rgb(0,0,0,0.75)"></i>
+                        </span>
+                        <input class="layui-input" type="password" name="password" id="password" lay-verify="required" placeholder="请输入密码" autocomplete="off">
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -51,9 +59,8 @@
                 method: 'post',
                 url: 'login',
                 data: fdata.field,
-                success: function(data) {
-                    console.log(data);
-                    if (data.uid != 1 && data.uid != 0) {
+                success: function(returndata) {
+                    if (returndata.uid != 1 && returndata.uid != 0) {
                         //操作成功，进行提示，并关闭当前窗口(设置时间，不然会有抖动情况)
                         layer.msg('登陆成功', {
                             time: 1000,
@@ -62,11 +69,10 @@
                             //先得到当前iframe层的索引,再执行关闭 
                             var index = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(index);
-                            //刷新父页面
-                            window.parent.loggedInPage(data);
+                            window.parent.loggedInPage(returndata);
                         });
 
-                    } else if (data.uid == 0) {
+                    } else if (returndata.uid == 0) {
                         layer.msg('账号被封禁，无法登陆', {
                             icon: 2
                         });

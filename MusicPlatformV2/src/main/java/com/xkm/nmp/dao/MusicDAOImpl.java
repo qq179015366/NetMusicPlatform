@@ -51,7 +51,7 @@ public class MusicDAOImpl implements IMusicDAO {
 		return musics;
 	}
 
-	//查询所有歌曲
+	// 查询所有歌曲
 	@Override
 	public List<Music> queryAll(int start, int end) {
 		s = sf.openSession();
@@ -64,9 +64,9 @@ public class MusicDAOImpl implements IMusicDAO {
 	// 按条件查询总结果数
 	@Override
 	public Integer queryByConditionCount(String searchCondition) {
-		s=sf.openSession();
-		IMusicDAO mapper=s.getMapper(IMusicDAO.class);
-		Integer total=mapper.queryByConditionCount(searchCondition);
+		s = sf.openSession();
+		IMusicDAO mapper = s.getMapper(IMusicDAO.class);
+		Integer total = mapper.queryByConditionCount(searchCondition);
 		s.close();
 		return total;
 	}
@@ -74,10 +74,54 @@ public class MusicDAOImpl implements IMusicDAO {
 	// 歌曲池总结果数
 	@Override
 	public Integer queryAllCount() {
-		s=sf.openSession();
-		IMusicDAO mapper=s.getMapper(IMusicDAO.class);
-		Integer total=mapper.queryAllCount();
+		s = sf.openSession();
+		IMusicDAO mapper = s.getMapper(IMusicDAO.class);
+		Integer total = mapper.queryAllCount();
 		s.close();
+		return total;
+	}
+
+	@Override
+	public List<Music> queryByMlid(Long mlid, int start, int end) {
+		s = sf.openSession();
+		IMusicDAO mapper = s.getMapper(IMusicDAO.class);
+		List<Music> musics = mapper.queryByMlid(mlid, start, end);
+		s.close();
+		return musics;
+	}
+
+	@Override
+	public List<Music> queryAllUnderReview(int start, int size) {
+		s = sf.openSession();
+		IMusicDAO mapper = s.getMapper(IMusicDAO.class);
+		List<Music> musics = mapper.queryAllUnderReview(start, size);
+		s.close();
+		return musics;
+	}
+
+	@Override
+	public List<Music> queryAllDelMusic(int start, int size) {
+		s = sf.openSession();
+		IMusicDAO mapper = s.getMapper(IMusicDAO.class);
+		List<Music> musics = mapper.queryAllDelMusic(start, size);
+		s.close();
+		return musics;
+	}
+
+	@Override
+	public Integer queryAllUnderReviewCount() {
+		s = sf.openSession();
+		IMusicDAO mapper = s.getMapper(IMusicDAO.class);
+		Integer total = mapper.queryAllUnderReviewCount();
+		s.close();
+		return total;
+	}
+
+	@Override
+	public Integer queryAllDelMusicCount() {
+		s = sf.openSession();
+		IMusicDAO mapper = s.getMapper(IMusicDAO.class);
+		Integer total = mapper.queryAllDelMusicCount();
 		return total;
 	}
 

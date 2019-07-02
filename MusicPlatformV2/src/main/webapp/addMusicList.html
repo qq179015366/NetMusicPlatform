@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建歌单</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="layui/css/layui.css" />
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="layui/layui.js"></script>
+</head>
+
+<body>
+    <div class="layui-container">
+        <div class="layui-form-item layui-row">
+            <h3 style="text-align: center">创建歌单</h3>
+        </div>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <input type="hidden" id="type" name="type" value="register">
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">歌单名</label>
+                <div class="layui-input-block layui-col-md2">
+                    <input class="layui-input" type="text" name="mlname" id="mlname" lay-verify="required" placeholder="请输入歌单名" autocomplete="off">
+                </div>
+                <div class="layui-col-md2" id="mlname_prompt"></div>
+            </div>
+            <div class="layui-form-item layui-row">
+                <label class="layui-form-label layui-col-md2">详细信息</label>
+                <div class="layui-input-block layui-col-md2">
+                    <textarea class="layui-textarea" name="detail" id="detail" lay-verify="required" placeholder="请输入详细信息" autocomplete="off"></textarea>
+                </div>
+                <div class="layui-col-md2" id="detail_prompt"></div>
+            </div>
+
+            <button type="button" onclick="creatMusicList()" class="layui-btn">
+				<i class="layui-icon">&#xe608;</i> 创建
+			</button>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use('element', function() {
+        var element = layui.element;
+    });
+    layui.use('layer', function() {
+        var layer = layui.layer;
+    });
+    layui.use(['laydate', 'form'], function() {
+        var form = layui.form;
+    });
+
+    function creatMusicList() {
+        var mlname = $("#mlname").val();
+        var detail = $("#detail").val();
+        $.ajax({
+            url: 'musiclist',
+            method: 'post',
+            data: {
+                'type': 'add',
+                'mlname': mlname,
+                'detail': detail
+            },
+            success: function(returndata) {
+                if (returndata == 'ok') {
+                    layer.msg('添加成功', {
+                        time: 1000,
+                        icon: 1
+                    }, function() {
+                        //先得到当前iframe层的索引,再执行关闭 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                        window.parent.loadMyMusicList();
+                    });
+                } else {
+                    layer.msg('添加失败', {
+                        icon: 2
+                    });
+                }
+            },
+            dataType: 'text'
+        })
+    }
+</script>
+
+</html>

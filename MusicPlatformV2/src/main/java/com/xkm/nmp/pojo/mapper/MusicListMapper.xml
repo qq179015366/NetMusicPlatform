@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- namespace:命名空间，该值与接口保持一致 -->
+<mapper namespace="com.xkm.nmp.dao.IMusicListDAO">
+	<!-- 开启二级缓存，默认情况下没有有开启的 -->
+	<cache />
+	<!-- 定义Pojo类属性与数据表字段对应关系 -->
+	<resultMap type="MusicList" id="musicListMap">
+		<id property="mlid" column="mlid" />
+		<result property="uid" column="uid" />
+		<result property="mlname" column="mlname" />
+		<result property="detail" column="detail" />
+		
+	</resultMap>
+	
+	<insert id="addMusicList" parameterType="MusicList">
+		INSERT INTO MUSICLIST_TABLE(UID,MLNAME,DETAIL) VALUES(#{uid},#{mlname},#{detail})
+	</insert>
+	
+	<select id="queryAll" resultMap="musicListMap">
+		SELECT ML.MLID,ML.UID,ML.MLNAME,ML.DETAIL FROM MUSICLIST_TABLE ML WHERE UID=#{arg0}
+	</select>
+	
+	<insert id="addMusicToMusicList" parameterType="java.lang.Long">
+	INSERT INTO musiclist_music_relat_table VALUES(#{arg0},#{arg1});
+	</insert>
+	
+	
+</mapper>

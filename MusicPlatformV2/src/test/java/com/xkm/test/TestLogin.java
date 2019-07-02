@@ -14,8 +14,10 @@ import com.xkm.nmp.service.UserService;
 public class TestLogin {
 	public static void main(String[] args) {
 		UserService us = new UserService();
-		User user=us.getUserByUname("testAccount");
-		System.out.println(user.toString());
+		System.out.println(us.countBlockUser());
+		
+		//User user=us.getUserByUname("testAccount");
+		//System.out.println(user.toString());
 
 		// User user=new User();
 		// user.setUname("Jacob");

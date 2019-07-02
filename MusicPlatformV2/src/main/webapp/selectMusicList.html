@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>选择歌单</title>
+    <link rel="stylesheet" href="layui/css/layui.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/customNetMusic.css" />
+    <link rel="stylesheet" type="text/css" href="css/audio.css">
+</head>
+
+<body style="background-color: rgba(55,55,55,0.75)">
+    <!--我的歌单-->
+    <div id="selfList">
+
+    </div>
+</body>
+<!--layui界面js-->
+<script type="text/javascript" src="layui/layui.js"></script>
+<!--js-->
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/customNetMusic.js"></script>
+<script>
+    $(function() {
+        var url = location.search; //获取url中"?"符后的字串
+        var strs = url.split("=");
+        mid = strs[1];
+        loadMyMusicList(mid);
+        layui.use('element', function() {
+            var element = layui.element;
+        });
+        layui.use('layer', function() {
+            var layer = layui.layer;
+        });
+        layui.use(['laydate', 'form'], function() {
+            var form = layui.form;
+        });
+    });
+    //加载歌单列表
+    function loadMyMusicList(mid) {
+        $(".musicListDiv").mouseover(function() {
+            $(this).css({
+                'background-color': 'rgba(200, 200, 200, 0.99)'
+            });
+        })
+        $(".musicListDiv").mouseout(function() {
+            $(this).css({
+                'background-color': 'rgba(225, 225, 225, 0.75)'
+            });
+        })
+        $.ajax({
+            url: 'musiclist',
+            method: 'get',
+            data: {
+                'type': 'getMyMusicList'
+            },
+            success: function(returndata) {
+                var div = '';
+                $.each(returndata, function(index, val) {
+                    div += `
+                        <div class="musicListDiv" onclick="selectThisMusicList(${val.mlid},` + mid + `)">
+                            <ul style="float:left">
+                                <li>
+                                    歌单
+                                </li>
+                                <li>
+                                    <img src="frontImage/dy1.jpg" class="musicListImg">
+                                </li>
+                                <li>
+                                    <br> ${val.mlname}
+                                </li>
+                            </ul>
+                        
+                        </div>
+                    `;
+                });
+                $("#selfList").html(div);
+            },
+            dataType: 'json'
+        })
+    }
+
+    function selectThisMusicList(mlid, mid) {
+        $.ajax({
+            url: 'musiclist',
+            method: 'post',
+            data: {
+                'type': 'addMusicList_Music_Relat',
+                'mlid': mlid,
+                'mid': mid
+            },
+            success: function(returndata) {
+                if (returndata == 'ok') {
+                    //操作成功，进行提示，并关闭当前窗口(设置时间，不然会有抖动情况)
+                    layer.msg('已添加', {
+                        time: 1000,
+                        icon: 1
+                    }, function() {
+                        //先得到当前iframe层的索引,再执行关闭 
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
+                        window.parent.loadMyMusicList();
+                    });
+                } else if (returndata == 'fail') {
+                    layer.msg('不能重复添加', {
+                        icon: 2
+                    });
+                } else {
+                    layer.msg('不明原因失败', {
+                        icon: 2
+                    });
+                }
+            },
+            dataType: 'text'
+        });
+    }
+</script>
+
+</html>

@@ -25,6 +25,14 @@
 		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email,u.status FROM USER_table u
 	</select>
 	
+	<select id="queryAllByPager" resultMap="userMap">
+		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email,u.status FROM USER_table u where u.status=1 Limit #{arg0},#{arg1}
+	</select>
+	
+	<select id="queryBlockUser" resultMap="userMap">
+		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email,u.status FROM USER_table u where u.status=0 Limit #{arg0},#{arg1}
+	</select>
+	
 	<select id="checkUser" resultMap="userMap">
 		SELECT u.uid,u.uname,u.password,u.sex,u.phone,u.email,u.status FROM USER_table u WHERE UNAME=#{arg0} AND PASSWORD=#{arg1};
 	</select>
@@ -40,4 +48,17 @@
 	<update id="delUser" parameterType="java.lang.Long">
 	   UPDATE  USER_TABLE SET STATUS = 0 WHERE UID = #{uid}
 	</update>
+	
+	<update id="renewUser" parameterType="java.lang.Long">
+	   UPDATE  USER_TABLE SET STATUS = 1 WHERE UID = #{uid}
+	</update>
+	
+	<select id="countUser" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM USER_TABLE where status=1
+	</select>
+	
+	<select id="countBlockUser" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM USER_TABLE where status=0
+	</select>
+	
 </mapper>

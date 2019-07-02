@@ -11,7 +11,7 @@ import com.xkm.nmp.pojo.LoginManager;
  */
 public class LoginListener implements HttpSessionListener {
 
-	private LoginManager loginM = new LoginManager();
+	public static LoginManager loginM = new LoginManager();
 
 	/**
 	 * Default constructor.
@@ -34,6 +34,7 @@ public class LoginListener implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent se) {
 		String sessionId=se.getSession().getId();
 		loginM.remove(sessionId);
+		loginM.removeUser(sessionId);
 	}
 
 }

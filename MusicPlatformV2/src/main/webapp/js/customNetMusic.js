@@ -24,9 +24,36 @@ function openLoginWin() {
         type: 2,
         title: '登录云音乐',
         content: url,
-        area: ['550px', '350px'],
+        skin: 'layui-layer-lan',
+        area: ['300px', '300px'],
         maxmin: true
 
+    });
+}
+
+/*选择歌单窗口*/
+function selectMusicList(mid) {
+    var url = 'selectMusicList.html';
+    url = url + "?mid=" + mid;
+    //弹出窗口
+    layer.open({
+        type: 2,
+        title: '选择歌单',
+        content: url,
+        area: ['275px', '360px'],
+        maxmin: true
+    });
+}
+
+function openAddMusicList() {
+    var url = 'addMusicList.html';
+    //弹出窗口
+    layer.open({
+        type: 2,
+        title: '添加歌单',
+        content: url,
+        area: ['300px', '320px'],
+        maxmin: true
     });
 }
 
@@ -41,7 +68,8 @@ function openRegisterWin() {
         type: 2,
         title: '注册',
         content: url,
-        area: ['650px', '550px'],
+        skin: 'layui-layer-lan',
+        area: ['360px', '550px'],
         maxmin: true
 
     });
@@ -58,7 +86,7 @@ function openCreatorCenterWin() {
         type: 2,
         title: '创作者中心',
         content: url,
-        area: ['650px', '550px'],
+        area: ['500px', '550px'],
         maxmin: true
 
     });

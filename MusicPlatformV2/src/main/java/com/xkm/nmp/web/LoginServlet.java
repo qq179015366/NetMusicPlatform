@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xkm.nmp.core.utils.GsonUtil;
+import com.xkm.nmp.pojo.LoginManager;
 import com.xkm.nmp.pojo.User;
 import com.xkm.nmp.service.UserService;
 
@@ -18,6 +19,7 @@ import com.xkm.nmp.service.UserService;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserService us = new UserService();
+	public static LoginManager loginm = new LoginManager();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,6 +47,8 @@ public class LoginServlet extends HttpServlet {
 			User user = us.checkUser(uname, password);
 			if (user != null && user.getStatus() != 0) {
 				request.getSession().setAttribute("user", user);
+				LoginManager.getSessionUserMap().put(request.getSession().getId(), user);
+				loginm.addUser(request.getSession().getId());
 				String json = GsonUtil.getJsonString(user);
 				pw.print(json);
 			} else if (user != null && user.getStatus() == 0) {
@@ -67,21 +71,21 @@ public class LoginServlet extends HttpServlet {
 			else
 				pw.print("ok");
 		} else if ("loadData".equals(type)) {
-			//载入数据
-			User user=null;
+			// 载入数据
+			User user = null;
 			try {
-				user=(User)request.getSession().getAttribute("user");
-				if(user==null) {
-					user=new User();
-					user.setUid((long)-1);
+				user = (User) request.getSession().getAttribute("user");
+				if (user == null) {
+					user = new User();
+					user.setUid((long) -1);
 				}
 			} catch (Exception e) {
-				user=new User();
-				user.setUid((long)-1);
+				user = new User();
+				user.setUid((long) -1);
 			}
-			String jsondata=GsonUtil.getJsonString(user);
+			String jsondata = GsonUtil.getJsonString(user);
 			pw.print(jsondata);
-		}else if("exit".equals(type)) {
+		} else if ("exit".equals(type)) {
 			request.getSession().invalidate();
 			pw.print("ok");
 		}

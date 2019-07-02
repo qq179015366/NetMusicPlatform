@@ -17,8 +17,23 @@ public interface IMusicDAO {
 	// 歌曲池所有歌曲
 	public List<Music> queryAll(int start, int end);
 
+	// 查询未审查歌曲
+	public List<Music> queryAllUnderReview(int start, int size);
+
+	// 查询所有被删除的歌曲
+	public List<Music> queryAllDelMusic(int start, int size);
+
 	// 歌曲池总结果数
 	public Integer queryAllCount();
+
+	// 未在歌曲池总结果数
+	public Integer queryAllUnderReviewCount();
+
+	// 被删除歌曲总结果数
+	public Integer queryAllDelMusicCount();
+
+	// 查询对应歌单的音乐
+	public List<Music> queryByMlid(Long mlid, int start, int end);
 
 	// 恢复
 	public void renewMusic(Long mid);

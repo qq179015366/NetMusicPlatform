@@ -27,8 +27,24 @@
 		SELECT m.mid,m.mname,m.author,m.style,m.uploader,m.playtimes,m.uploaddate,m.lyric,m.status FROM music_table m WHERE STATUS=1 LIMIT #{arg0},#{arg1}
 	</select>
 	
+	<select id="queryAllUnderReview" resultMap="musicMap">
+		SELECT m.mid,m.mname,m.author,m.style,m.uploader,m.playtimes,m.uploaddate,m.lyric,m.status FROM music_table m WHERE STATUS=0 LIMIT #{arg0},#{arg1}
+	</select>
+	
+	<select id="queryAllDelMusic" resultMap="musicMap">
+		SELECT m.mid,m.mname,m.author,m.style,m.uploader,m.playtimes,m.uploaddate,m.lyric,m.status FROM music_table m WHERE STATUS=2 LIMIT #{arg0},#{arg1}
+	</select>
+	
 	<select id="queryAllCount" resultType="java.lang.Integer">
 		SELECT count(1) FROM music_table WHERE STATUS=1
+	</select>
+	
+	<select id="queryAllUnderReviewCount" resultType="java.lang.Integer">
+		SELECT count(1) FROM music_table WHERE STATUS=0
+	</select>
+	
+	<select id="queryAllDelMusicCount" resultType="java.lang.Integer">
+		SELECT count(1) FROM music_table WHERE STATUS=2
 	</select>
 	
 	<!-- 按条件查询 -->
@@ -47,8 +63,6 @@
 	SELECT * FROM music_table WHERE author LIKE #{arg0} AND STATUS=1) a
 	</select>
 	
-	
-	
 	<!-- 添加歌曲-->
 	<insert id="addMusic" parameterType="Music">
 		INSERT INTO MUSIC_TABLE(MNAME,AUTHOR,STYLE,UPLOADER,PLAYTIMES,UPLOADDATE,LYRIC,STATUS)
@@ -64,5 +78,13 @@
 	<update id="renewMusic" parameterType="java.lang.Long">
 	UPDATE MUSIC_TABLE SET STATUS = 1 WHERE MID = #{mid}
 	</update>
+	
+	<select id="queryByMlid" resultMap="musicMap">
+	select a.mid,a.mname,a.author,a.style,a.uploader,a.playtimes,a.uploaddate,a.lyric,a.status from music_table a 
+	inner join 
+	(select mmrt.mid from musiclist_music_relat_table mmrt where mlid=#{arg0}) b 
+	where a.mid=b.mid and a.status=1 
+	LIMIT #{arg1},#{arg2}
+	</select>
 	
 </mapper>

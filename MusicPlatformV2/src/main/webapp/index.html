@@ -11,10 +11,12 @@
 
 </head>
 
-<body>
+<body background="frontImage/sm1.jpg">
     <ul class="layui-nav">
         <li class="layui-nav-item logoNav">
-            <img src="frontImage/MusicMuseumLogo.jpg">
+            <a href="javascript:switchToMain();">
+                <img src="frontImage/MusicMuseumLogo.jpg">
+            </a>
         </li>
         <li class="layui-nav-item loginNav">
             <a href="javascript:openLoginWin();">
@@ -40,16 +42,16 @@
             </a>
         </li>
         <li class="layui-nav-item userNav">
-            <a id="me" href=""><img src="frontImage/cnf1.jpg" class="layui-nav-img">我</a>
+            <a id="me" href=""><img src="frontImage/cndy1.jpg" class="layui-nav-img">我</a>
             <dl class="layui-nav-child">
                 <dd>
-                    <a href="javascript:;">修改信息</a>
+                    <a href="javascript:;">个人资料</a>
                 </dd>
                 <dd>
                     <a href="javascript:;">消息<span class="layui-badge layui-bg-orange">5</span></a>
                 </dd>
                 <dd>
-                    <a href="javascript:;">管理</a>
+                    <a href="javascript:openAddMusicList();">添加歌单</a>
                 </dd>
                 <dd>
                     <a href="javascript:exitLogin();">退出</a>
@@ -57,7 +59,7 @@
             </dl>
         </li>
     </ul>
-    <div class="layui-container">
+    <div class="layui-container" id="mainContainer">
         <!--轮播区域-->
         <div class="layui-row layui-col-space10">
             <div class="carouselContent">
@@ -84,10 +86,81 @@
             </div>
         </div>
         <div class="layui-row layui-col-space10">
-            <div class="layui-col-md2">
-                <table id="MusicList_tb" lay-filter="tbf" lay-skin="nob"></table>
+            <div class="layui-col-md3">
+                <!--公共歌单-->
+                <div id="mainList">
+                    <div class="musicListDiv">
+                        <ul>
+                            <li>
+
+                            </li>
+                            <li>
+                                <img src="frontImage/cnf2.jpg" class="musicListImg">
+                            </li>
+                            <li>
+                                <br> Top榜单
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="musicListDiv">
+                        <ul style="float:left">
+                            <li>
+
+                            </li>
+                            <li>
+                                <img src="frontImage/cnf2.jpg" class="musicListImg">
+                            </li>
+                            <li>
+                                <br> 热门新歌
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="musicListDiv">
+                        <ul style="float:left">
+                            <li>
+
+                            </li>
+                            <li>
+                                <img src="frontImage/cnf2.jpg" class="musicListImg">
+                            </li>
+                            <li>
+                                <br> 旧世经典
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="musicListDiv">
+                        <ul style="float:left">
+                            <li>
+
+                            </li>
+                            <li>
+                                <img src="frontImage/cnf2.jpg" class="musicListImg">
+                            </li>
+                            <li>
+                                <br> 游戏动漫
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="musicListDiv">
+                        <ul style="float:left">
+                            <li>
+
+                            </li>
+                            <li>
+                                <img src="frontImage/cnf2.jpg" class="musicListImg">
+                            </li>
+                            <li>
+                                <br> 流行电音
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--我的歌单-->
+                <div id="selfList">
+
+                </div>
             </div>
-            <div class="layui-col-md8">
+            <div class="layui-col-md9">
                 <div class="layui-tab">
                     <ul class="layui-tab-title">
                         <li class="layui-this">单曲</li>
@@ -106,12 +179,10 @@
                                     </tr>
                                 </thead>
                                 <tbody class="musicList" id="music">
-
-
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td>
+                                        <td id="musicPageFoot">
                                             <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="goMusicPageFirst()">首页</button>
                                             <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="goMusicPagePrev()">上一页</button>
                                             <i class="layui-icon layui-icon-table" id="pageInfo" style="font-size: 12px;color:rgb(55,55,55,0.75)"></i>
@@ -149,21 +220,17 @@
                             <!-- 按歌单查询的歌单数据表-->
                             <thead>
                                 <tr>
-                                    <th scope="col">歌单名</th>
-                                    <th scope="col">详细</th>
+                                    <th scope="col">作者</th>
+                                    <th scope="col">简介</th>
                                 </tr>
                             </thead>
-                            <tbody class="authorList" id="authorList">
+                            <tbody class="musicList" id="musicList">
 
                             </tbody>
                         </div>
                     </div>
                 </div>
 
-            </div>
-            <div class="layui-col-md2">
-                <!--用户块？待商定-->
-                <!--<table id="User_div" lay-filter="tbf"></table>-->
             </div>
         </div>
 
@@ -174,50 +241,94 @@
         <div class="layui-row layui-col-space10">
             <footer>Copyright (c) 2019 第五项目组 All Rights Reserved.</footer>
         </div>
-
-        <!--播放器-->
-        <div class="audio-box">
-            <div class="audio-container">
-                <div class="audio-cover"></div>
-                <div class="audio-view">
-                    <h3 class="audio-title">未知歌曲</h3>
-                    <div class="audio-body">
-                        <div class="audio-backs">
-                            <div class="audio-this-time">00:00</div>
-                            <div class="audio-count-time">00:00</div>
-                            <div class="audio-setbacks">
-                                <i class="audio-this-setbacks">
+    </div>
+    <!--播放器-->
+    <div class="audio-box">
+        <div class="audio-container">
+            <div class="audio-cover"></div>
+            <div class="audio-view">
+                <h3 class="audio-title">未知歌曲</h3>
+                <div class="audio-body">
+                    <div class="audio-backs">
+                        <div class="audio-this-time">00:00</div>
+                        <div class="audio-count-time">00:00</div>
+                        <div class="audio-setbacks">
+                            <i class="audio-this-setbacks">
                                         <span class="audio-backs-btn"></span>
                                     </i>
-                                <span class="audio-cache-setbacks">
+                            <span class="audio-cache-setbacks">
                                     </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="audio-btn">
-                        <div class="audio-select">
-                            <div class="audio-prev"></div>
-                            <div class="audio-play"></div>
-                            <div class="audio-next"></div>
-                            <div class="audio-menu"></div>
-                            <div class="audio-volume"></div>
-                        </div>
-                        <div class="audio-set-volume">
-                            <div class="volume-box">
-                                <i><span></span></i>
-                            </div>
-                        </div>
-                        <div class="audio-list">
-                            <div class="audio-list-head">
-                                <p>☺随心听</p>
-                                <span class="menu-close">关闭</span>
-                            </div>
-                            <ul class="audio-inline">
-                            </ul>
                         </div>
                     </div>
                 </div>
+                <div class="audio-btn">
+                    <div class="audio-select">
+                        <div class="audio-prev"></div>
+                        <div class="audio-play"></div>
+                        <div class="audio-next"></div>
+                        <div class="audio-menu"></div>
+                        <div class="audio-volume"></div>
+                    </div>
+                    <div class="audio-set-volume">
+                        <div class="volume-box">
+                            <i><span></span></i>
+                        </div>
+                    </div>
+                    <div class="audio-list">
+                        <div class="audio-list-head">
+                            <p>☺随心听</p>
+                            <span class="menu-close">关闭</span>
+                        </div>
+                        <ul class="audio-inline">
+                        </ul>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+    <!--歌单内容-->
+    <div class="layui-container" id="musicListContainer">
+        <div class="layui-row layui-col-space10">
+            <h2 id="mixTitle">
+            </h2>
+        </div>
+        <div class="layui-row layui-col-space10">
+            <h6 id="mixSubTitle">
+            </h6>
+        </div>
+        <div class="layui-row layui-col-space10">
+
+            <table class="layui-table" lay-size="lg" lay-skin="nob">
+                <thead>
+                    <tr>
+                        <th scope="col">歌曲名</th>
+                        <th scope="col">作者</th>
+                        <th scope="col">试听</th>
+                    </tr>
+                </thead>
+                <tbody class="musicList" id="inMusic">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td id="inMusicPageFoot">
+                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="ingoMusicPageFirst()">首页</button>
+                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="ingoMusicPagePrev()">上一页</button>
+                            <i class="layui-icon layui-icon-table" id="pageInfo" style="font-size: 12px;color:rgb(55,55,55,0.75)"></i>
+                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="ingoMusicPageNext()">下一页</button>
+                            <button class="layui-btn layui-btn-primary layui-btn-sm" onclick="ingoMusicPageLast()">末页</button>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <form id="inMusicPagerform" method="post" action="search">
+                <input type="hidden" name="type" value="openMusicList" id="type">
+                <input type="hidden" name="searchCondition" value="" id="searchCondition">
+                <input type="hidden" name="currentPage" value="" id="currentPage">
+                <input type="hidden" name="totalData" value="" id="totalData">
+                <input type="hidden" name="pageSize" value="" id="pageSize">
+                <input type="hidden" name="pageNum" value="" id="pageNum">
+            </form>
         </div>
     </div>
 </body>
@@ -236,6 +347,7 @@
         loadMusicPlayer(null);
         loadMusicDatax();
         getMusicPager();
+        loadMyMusicList();
     });
 
     /*layui组件*/
@@ -274,39 +386,6 @@
         });
     }
 
-    /*载入未登录页面*/
-    function logOutPage() {
-        $(".loginNav").css({
-            "display": "inline-block"
-        });
-        $(".registerNav").css({
-            "display": "inline-block"
-        });
-        $(".creatorCenterNav").css({
-            "display": "none"
-        });
-        $(".userNav").css({
-            "display": "none"
-        });
-    }
-
-    /*载入已登录页面*/
-    function loggedInPage(user) {
-        $(".loginNav").css({
-            "display": "none"
-        });
-        $(".registerNav").css({
-            "display": "none"
-        });
-        $(".creatorCenterNav").css({
-            "display": "inline-block"
-        });
-        $(".userNav").css({
-            "display": "inline-block"
-        });
-        $(".userNav #me").html('<img src="frontImage/cnf1.jpg" class="layui-nav-img">' + user.uname);
-    }
-
     /*搜索歌曲数据*/
     function loadMusicDatax() {
         var type = $("#musicPagerform>#type").val();
@@ -340,6 +419,7 @@
                             <td>` + mname1 + `</td>
                             <td>` + author1 + `</td>
                             <td>
+                                <i onclick="selectMusicList('${val.mid}')" class="layui-icon layui-icon-add-1"></i>
                                 <i onclick="initPlayer('${val.mname}', '${val.uploader}', '${val.mname}')" class="layui-icon layui-icon-play"></i>
                             </td>
                         <tr>
@@ -350,16 +430,17 @@
                             <td>${val.mname}</td>
                             <td>${val.author}</td>
                             <td>
+                                <i onclick="selectMusicList('${val.mid}')" class="layui-icon layui-icon-add-1"></i>
                                 <i onclick="initPlayer('${val.mname}', '${val.uploader}', '${val.mname}')" class="layui-icon layui-icon-play"></i>
                             </td>
                         <tr>
                          `;
                     }
-                    $("#currentPage").val(returndata.pager.currentPage);
-                    $("#totalData").val(returndata.pager.totalData);
-                    $("#pageSize").val(returndata.pager.pageSize);
-                    $("#pageNum").val(returndata.pager.pageNum);
-                    $("#pageInfo").html("当前第" + returndata.pager.currentPage + "页/共" + returndata.pager.pageNum + "页");
+                    $("#musicPagerform>#currentPage").val(returndata.pager.currentPage);
+                    $("#musicPagerform>#totalData").val(returndata.pager.totalData);
+                    $("#musicPagerform>#pageSize").val(returndata.pager.pageSize);
+                    $("#musicPagerform>#pageNum").val(returndata.pager.pageNum);
+                    $("#musicPageFoot>#pageInfo").html("当前第" + returndata.pager.currentPage + "页/共" + returndata.pager.pageNum + "页");
                 });
                 $("#music").html(tr);
             },
@@ -368,39 +449,185 @@
     }
 
     //获取单曲页信息
-    function getMusicPager() {
-
-    }
+    function getMusicPager() {}
 
     function goMusicPageFirst() {
         var p = 1;
-        $("#currentPage").val(p.toString());
+        $("#musicPagerform>#currentPage").val(p.toString());
         loadMusicDatax();
         getMusicPager();
     }
 
     function goMusicPagePrev() {
-        var p = parseInt($("#currentPage").val());
+        var p = parseInt($("#musicPagerform>#currentPage").val());
         if ((p - 1) >= 1) {
-            $("#currentPage").val((p - 1).toString());
+            $("#musicPagerform>#currentPage").val((p - 1).toString());
         }
         loadMusicDatax();
         getMusicPager();
     }
 
     function goMusicPageNext() {
-        var p = parseInt($("#currentPage").val());
-        var last = parseInt($("#pageNum").val());
+        var p = parseInt($("#musicPagerform>#currentPage").val());
+        var last = parseInt($("#musicPagerform>#pageNum").val());
         if ((p + 1) <= last) {
-            $("#currentPage").val((p + 1).toString());
+            $("#musicPagerform>#currentPage").val((p + 1).toString());
         }
         loadMusicDatax();
         getMusicPager();
     }
 
     function goMusicPageLast() {
-        var p = $("#pageNum").val();
-        $("#currentPage").val(p);
+        var p = $("#musicPagerform>#pageNum").val();
+        $("#musicPagerform>#currentPage").val(p);
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    //加载歌单列表
+    function loadMyMusicList() {
+        $.ajax({
+            url: 'musiclist',
+            method: 'get',
+            data: {
+                'type': 'getMyMusicList'
+            },
+            success: function(returndata) {
+                var div = '';
+                $.each(returndata, function(index, val) {
+                    div += `
+                        <div class="musicListDiv" onclick="openMusicList(${val.mlid},'${val.mlname}','${val.detail}')">
+                            <ul style="float:left">
+                                <li>
+                                    歌单
+                                </li>
+                                <li>
+                                    <img src="frontImage/dy1.jpg" class="musicListImg">
+                                </li>
+                                <li>
+                                    <br> ${val.mlname}
+                                </li>
+                            </ul>
+                        
+                        </div>
+                    `;
+                });
+                $("#selfList").html(div);
+            },
+            dataType: 'json'
+        })
+    }
+
+    /*切换到主页面*/
+    function switchToMain() {
+        $("#mainContainer").css({
+            'display': 'block'
+        })
+        $("#musicListContainer").css({
+            'display': 'none'
+        })
+        loadMyMusicList();
+    }
+
+    /*打开歌单*/
+    function openMusicList(mlid, mlname, detail) {
+        $("#mainContainer").css({
+            'display': 'none'
+        })
+        $("#musicListContainer").css({
+            'display': 'block'
+        })
+        var type = $("#inMusicPagerform>#type").val();
+        var searchCondition = $("#inMusicPagerform>#searchCondition").val();
+        var currentPage = $("#inMusicPagerform>#currentPage").val();
+        var totalData = $("#inMusicPagerform>#totalData").val();
+        var pageSize = $("#inMusicPagerform>#pageSize").val();
+        var pageNum = $("#inMusicPagerform>#pageNum").val();
+        $.ajax({
+            url: 'search',
+            type: 'POST',
+            data: {
+                'type': type,
+                'searchCondition': searchCondition,
+                'currentPage': currentPage,
+                'totalData': totalData,
+                'pageSize': pageSize,
+                'pageNum': pageNum,
+                'mlid': mlid
+            },
+            success: function(returndata) {
+                $("#mixTitle").html("<br>" + mlname);
+                $("#mixSubTitle").html("<br>歌单简介:" + detail);
+                var tr = '';
+                $.each(returndata.data, function(index, val) {
+                    if (searchCondition != '') {
+                        var mname0 = `${val.mname}`;
+                        var mname1 = keyWordHighlight(mname0, searchCondition);
+                        var author0 = `${val.author}`;
+                        var author1 = keyWordHighlight(author0, searchCondition);
+                        tr = tr + `
+                        <tr>
+                            <td>` + mname1 + `</td>
+                            <td>` + author1 + `</td>
+                            <td>
+                                <i onclick="initPlayer('${val.mname}', '${val.uploader}', '${val.mname}')" class="layui-icon layui-icon-play"></i>
+                            </td>
+                        <tr>
+                         `;
+                    } else {
+                        tr += `
+                        <tr>
+                            <td>${val.mname}</td>
+                            <td>${val.author}</td>
+                            <td>
+                                <i onclick="selectMusicList('${val.mid}')" class="layui-icon layui-icon-add-1"></i>
+                                <i onclick="initPlayer('${val.mname}', '${val.uploader}', '${val.mname}')" class="layui-icon layui-icon-play"></i>
+                            </td>
+                        <tr>
+                         `;
+                    }
+                    $("#inMusicPageFoot>#currentPage").val(returndata.pager.currentPage);
+                    $("#inMusicPageFoot>#totalData").val(returndata.pager.totalData);
+                    $("#inMusicPageFoot>#pageSize").val(returndata.pager.pageSize);
+                    $("#inMusicPageFoot>#pageNum").val(returndata.pager.pageNum);
+                    $("#inMusicPageFoot>#pageInfo").html("当前第" + returndata.pager.currentPage + "页/共" + returndata.pager.pageNum + "页");
+                });
+                $("#inMusic").html(tr);
+            },
+            dataType: 'json'
+        })
+    }
+
+
+    function ingoMusicPageFirst() {
+        var p = 1;
+        $("#inMusicPagerform>#currentPage").val(p.toString());
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    function ingoMusicPagePrev() {
+        var p = parseInt($("#inMusicPagerform#currentPage").val());
+        if ((p - 1) >= 1) {
+            $("#inMusicPagerform>#currentPage").val((p - 1).toString());
+        }
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    function ingoMusicPageNext() {
+        var p = parseInt($("#inMusicPagerform#currentPage").val());
+        var last = parseInt($("#inMusicPagerform#pageNum").val());
+        if ((p + 1) <= last) {
+            $("#inMusicPagerform>#currentPage").val((p + 1).toString());
+        }
+        loadMusicDatax();
+        getMusicPager();
+    }
+
+    function ingoMusicPageLast() {
+        var p = $("#inMusicPagerform#pageNum").val();
+        $("#inMusicPagerform>#currentPage").val(p);
         loadMusicDatax();
         getMusicPager();
     }
@@ -463,6 +690,7 @@
             },
             dataType: 'text'
         });
+        logOutPage();
     }
 
     /*关键字变红*/
@@ -470,6 +698,80 @@
         var reg = new RegExp("(" + target + ")", "g");
         var newstr = str.replace(reg, "<font color=red>$1</font>");
         return newstr;
+    }
+
+
+    /*载入未登录页面*/
+    function logOutPage() {
+        switchToMain();
+        $("#mainList").css({
+            "display": "inline-block"
+        });
+        $(".loginNav").css({
+            "display": "inline-block"
+        });
+        $(".registerNav").css({
+            "display": "inline-block"
+        });
+        $(".creatorCenterNav").css({
+            "display": "none"
+        });
+        $(".userNav").css({
+            "display": "none"
+        });
+        $("#selfList").css({
+            "display": "none"
+        });
+        $("#musicListContainer").css({
+            'display': 'none'
+        })
+        $(".musicListDiv").mouseover(function() {
+            $(this).css({
+                'background-color': 'rgba(200, 200, 200, 0.99)'
+            });
+        })
+        $(".musicListDiv").mouseout(function() {
+            $(this).css({
+                'background-color': 'rgba(225, 225, 225, 0.75)'
+            });
+        })
+    }
+
+    /*载入已登录页面*/
+    function loggedInPage(user) {
+        switchToMain();
+        $("#mainList").css({
+            "display": "none"
+        })
+        $(".loginNav").css({
+            "display": "none"
+        });
+        $(".registerNav").css({
+            "display": "none"
+        });
+        $(".creatorCenterNav").css({
+            "display": "inline-block"
+        });
+        $(".userNav").css({
+            "display": "inline-block"
+        });
+        $("#selfList").css({
+            "display": "inline-block"
+        });
+        $("#musicListContainer").css({
+            'display': 'none'
+        })
+        $(".userNav #me").html('<img src="frontImage/cndy1.jpg" class="layui-nav-img">' + user.uname);
+        $(".musicListDiv").mouseover(function() {
+            $(this).css({
+                'background-color': 'rgba(200, 200, 200, 0.99)'
+            });
+        })
+        $(".musicListDiv").mouseout(function() {
+            $(this).css({
+                'background-color': 'rgba(225, 225, 225, 0.75)'
+            });
+        })
     }
 </script>
 

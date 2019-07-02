@@ -27,6 +27,18 @@ public class MusicService {
 		return dao.queryAll(start, end);
 	}
 
+	public List<Music> queryAllDelMusic(int page, int pageSize) {
+		int start = (page - 1) * pageSize;
+		int size = pageSize;
+		return dao.queryAllDelMusic(start, size);
+	}
+
+	public List<Music> queryAllUnderReview(int page, int pageSize) {
+		int start = (page - 1) * pageSize;
+		int size = pageSize;
+		return dao.queryAllUnderReview(start, size);
+	}
+
 	// 恢复歌曲
 	public void renewMusic(Long mid) {
 		dao.renewMusic(mid);
@@ -42,9 +54,26 @@ public class MusicService {
 		return dao.queryByConditionCount(searchCondition);
 	}
 
+	// 根据歌单id查询歌曲
+	public List<Music> queryByMlid(Long mlid, int page, int pageSize) {
+		int start = (page - 1) * pageSize;
+		int end = pageSize;
+		return dao.queryByMlid(mlid, start, end);
+	}
+
 	// 歌曲池总结果数
 	public Integer queryAllCount() {
 		return dao.queryAllCount();
+	}
+
+	// 未在歌曲池总结果数
+	public Integer queryAllUnderReviewCount() {
+		return dao.queryAllUnderReviewCount();
+	}
+
+	// 被删除的歌曲结果总数
+	public Integer queryAllDelMusicCount() {
+		return dao.queryAllDelMusicCount();
 	}
 
 }
